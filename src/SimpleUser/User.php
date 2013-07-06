@@ -279,6 +279,16 @@ class User implements UserInterface, \Serializable
     }
 
     /**
+     * Set the time the user was last modified.
+     *
+     * @param int $timeModified A timestamp value.
+     */
+    public function setTimeModified($timeModified)
+    {
+        $this->timeModified = $timeModified;
+    }
+
+    /**
      * Gets the time the user was last modified.
      *
      * @return int
