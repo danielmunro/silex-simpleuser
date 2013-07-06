@@ -46,12 +46,12 @@ class User implements UserInterface, \Serializable
     protected $name = '';
 
     /**
-     * @Column(type="time", name="time_created") 
+     * @Column(type="int", name="time_created") 
      */
     protected $timeCreated = null;
 
     /**
-     * @Column(type="time", name="time_modified", nullable=true) 
+     * @Column(type="int", name="time_modified", nullable=true) 
      */
     protected $timeModified = null;
 
@@ -63,8 +63,8 @@ class User implements UserInterface, \Serializable
     public function __construct($email)
     {
         $this->email = $email;
-        $this->timeCreated = (new \DateTime('now'))->getTimestamp();
-        $this->timeModified = (new \DateTime('now'))->getTimestamp();
+        $this->timeCreated = time();
+        $this->timeModified = time();
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
     }
 
@@ -363,7 +363,7 @@ class User implements UserInterface, \Serializable
      * @return void
      */
     public function updateTimeModifiedOnPersist() {
-        $this->timeModified = (new \DateTime('now'))->getTimestamp();
+        $this->timeModified = time();
     }
 
     /**
