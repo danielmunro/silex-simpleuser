@@ -46,12 +46,12 @@ class User implements UserInterface, \Serializable
     protected $name = '';
 
     /**
-     * @Column(type="int", name="time_created") 
+     * @Column(type="integer", name="time_created") 
      */
     protected $timeCreated = null;
 
     /**
-     * @Column(type="int", name="time_modified", nullable=true) 
+     * @Column(type="integer", name="time_modified", nullable=true) 
      */
     protected $timeModified = null;
 
