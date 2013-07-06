@@ -362,7 +362,6 @@ class UserManager implements UserProviderInterface
             , salt = :salt
             , name = :name
             , roles = :roles
-            , time_created = :timeCreated
             , time_modified = NOW()
             WHERE id = :id';
 
@@ -372,7 +371,6 @@ class UserManager implements UserProviderInterface
             'salt' => $user->getSalt(),
             'name' => $user->getName(),
             'roles' => implode(',', $user->getRoles()),
-            'timeCreated' => $user->getTimeCreated(),
             'id' => $user->getId(),
         );
 
