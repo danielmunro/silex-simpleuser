@@ -105,6 +105,7 @@ class UserManager implements UserProviderInterface
             $user->setRoles($roles);
         }
         $user->setTimeCreated($data['time_created']);
+        $user->setTimeModified($data['time_modified']);
 
         return $user;
     }
@@ -362,6 +363,7 @@ class UserManager implements UserProviderInterface
             , name = :name
             , roles = :roles
             , time_created = :timeCreated
+            , time_modified = NOW()
             WHERE id = :id';
 
         $params = array(

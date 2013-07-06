@@ -8,16 +8,52 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * A simple User model.
  *
  * @package SimpleUser
+ * @Entity
+ * @Table(name="users")
+ * @HasLifecycleCallbacks
  */
 class User implements UserInterface, \Serializable
 {
-    protected $id;
-    protected $email;
-    protected $password;
-    protected $salt;
+
+    /**
+     * @Id @Column(type="integer") @GeneratedValue
+     */
+    protected $id = 0;
+
+    /**
+     * @Column(type="string", unique=true) 
+     */
+    protected $email = '';
+
+    /**
+     * @Column(type="string") 
+     */
+    protected $password = '';
+
+    /**
+     * @Column(type="string") 
+     */
+    protected $salt = '';
+
+    /**
+     * @Column(type="string") 
+     */
     protected $roles = array();
+
+    /**
+     * @Column(type="string") 
+     */
     protected $name = '';
-    protected $timeCreated;
+
+    /**
+     * @Column(type="datetime", name="time_created") 
+     */
+    protected $timeCreated = null;
+
+    /**
+     * @Column(type="datetime", name="time_modified") 
+     */
+    protected $timeModified = null;
 
     /**
      * Constructor.
@@ -28,6 +64,7 @@ class User implements UserInterface, \Serializable
     {
         $this->email = $email;
         $this->timeCreated = time();
+        $this->timeModified = time();
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
     }
 
@@ -242,6 +279,16 @@ class User implements UserInterface, \Serializable
     }
 
     /**
+     * Gets the time the user was last modified.
+     *
+     * @return int
+     */
+    public function getLastModified()
+    {
+        return $this->lastModified;
+    }
+
+    /**
      * Removes sensitive data from the user.
      *
      * This is a no-op, since we never store the plain text credentials in this object.
@@ -308,4 +355,23 @@ class User implements UserInterface, \Serializable
         return $errors;
     }
 
+
+    /**
+     * @PrePersist
+     * Updates the last time modified when saved through Doctrine.
+     *
+     * @return void
+     */
+    public function updateTimeModifiedOnPersist() {
+        $this->timeModified = time();
+    }
+
+    /**
+     * Return the name of the user when the object is used as a string.
+     *
+     * @return string The name of the user.
+     */
+    public function __toString() {
+        return $this->name;
+    }
 }
