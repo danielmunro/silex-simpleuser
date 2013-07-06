@@ -46,12 +46,12 @@ class User implements UserInterface, \Serializable
     protected $name = '';
 
     /**
-     * @Column(type="datetime", name="time_created") 
+     * @Column(type="time", name="time_created") 
      */
     protected $timeCreated = null;
 
     /**
-     * @Column(type="datetime", name="time_modified", nullable=true) 
+     * @Column(type="time", name="time_modified", nullable=true) 
      */
     protected $timeModified = null;
 
@@ -283,9 +283,9 @@ class User implements UserInterface, \Serializable
      *
      * @return int
      */
-    public function getLastModified()
+    public function getTimeModified()
     {
-        return $this->lastModified;
+        return $this->timeModified;
     }
 
     /**
