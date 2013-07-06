@@ -63,8 +63,8 @@ class User implements UserInterface, \Serializable
     public function __construct($email)
     {
         $this->email = $email;
-        $this->timeCreated = time();
-        $this->timeModified = time();
+        $this->timeCreated = new \DateTime('now');
+        $this->timeModified = new \DateTime('now');
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
     }
 
@@ -363,7 +363,7 @@ class User implements UserInterface, \Serializable
      * @return void
      */
     public function updateTimeModifiedOnPersist() {
-        $this->timeModified = time();
+        $this->timeModified = new \DateTime('now');
     }
 
     /**
