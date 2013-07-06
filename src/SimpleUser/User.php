@@ -51,7 +51,7 @@ class User implements UserInterface, \Serializable
     protected $timeCreated = null;
 
     /**
-     * @Column(type="datetime", name="time_modified") 
+     * @Column(type="datetime", name="time_modified", nullable=true) 
      */
     protected $timeModified = null;
 
